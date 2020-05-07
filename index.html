@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="normalize.css" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Book Constructor Exercise</title>
+    </head>
+    <body>
+        <header id="header">
+            <h1 id="main-title">My Library</h1>
+        </header>
+        <div id="main">
+            <button
+                id="show-form"
+                class="default-button"
+                type="button"
+                onclick="toggleForm();"
+            >
+                Add new book
+            </button>
+            <div id="form-container" class="hidden">
+                <form id="new-book-form">
+                    <div class="form-group">
+                        <label for="title">Book Title*</label>
+                        <br />
+                        <input
+                            type="text"
+                            id="new-book-title"
+                            placeholder="Title"
+                            name="title"
+                        />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="author">Book Author*</label>
+                        <br />
+                        <input
+                            type="text"
+                            id="new-book-author"
+                            placeholder="Author"
+                            name="author"
+                        />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="pages">Number of Pages*</label>
+                        <br />
+                        <input
+                            type="number"
+                            id="new-book-pages"
+                            placeholder="0 pages"
+                            name="pages"
+                        />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="status">Read</label>
+                        <input
+                            type="checkbox"
+                            id="new-book-status"
+                            name="status"
+                        />
+                    </div>
+                    <br />
+                    <button
+                        id="hide-form"
+                        class="default-button hidden"
+                        type="reset"
+                        onclick="toggleForm();"
+                    >
+                        Cancel</button
+                    ><button id="submit" class="default-button" type="button">
+                        Submit book
+                    </button>
+                </form>
+            </div>
+            <div id="library"></div>
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>
