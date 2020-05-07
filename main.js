@@ -37,21 +37,33 @@ let myLibrary = [
     },
 ];
 
-function Book(title, author, pages, status) {
+let defaultForm = {
+    title: '',
+    author: '',
+    pages: 0,
+    read: false,
+};
+
+function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.status = status;
+    this.read = read;
 }
 
-document.getElementById('submit').onclick = addBookToLibrary;
-
-const showButton = document.getElementById('show-form');
-const hideButton = document.getElementById('hide-form');
-//remove hidden from hidden elements
-const formContainer = document.getElementById('form-container');
+function resetForm() {
+    document.getElementById('new-book-title').value = defaultForm.title;
+    document.getElementById('new-book-author').value = defaultForm.author;
+    document.getElementById('new-book-pages').value = defaultForm.pages;
+    document.getElementById('new-book-read').value = defaultForm.read;
+}
 
 function toggleForm() {
+    const showButton = document.getElementById('show-form');
+    const hideButton = document.getElementById('hide-form');
+    //remove hidden from hidden elements
+    const formContainer = document.getElementById('form-container');
+
     if (showButton.classList.contains('hidden')) {
         showButton.classList.remove('hidden');
         hideButton.classList.add('hidden');
@@ -61,17 +73,34 @@ function toggleForm() {
         hideButton.classList.remove('hidden');
         formContainer.classList.remove('hidden');
     }
+    //clear out any old junk
+    resetForm();
 }
 
 function addBookToLibrary() {
-    console.log('it works');
+    // I need validation here.
+    const newTitle = document.getElementById('new-book-title').value;
+    const newAuthor = document.getElementById('new-book-author').value;
+    const newPages = document.getElementById('new-book-pages').value;
+    const newRead = document.getElementById('new-book-read').value;
+    const newBook = new Book(newTitle, newAuthor, newPages, newRead);
+    pushIntoArray(newBook);
 }
-function removeBookFromLibrary() {}
-function markBookStatus() {}
+function removeBookFromLibrary(index) {
+    //can improve this to allow undo by not destroying the original array
+    myLibrary.splice(index, 1);
+    console.log(myLibrary);
+    const removedElement = document.querySelector(`[data-key="${index}"]`);
+    removedElement.parentNode.removeChild(removedElement);
+}
+function changeBookStatus(index) {
+    myLibrary[index].read = !myLibrary[index].read;
+    const statusText = getBookStatus(myLibrary[index].read);
+    const markRead = document.getElementById('read-button');
+    markRead.textContent = `Mark as ${statusText}`;
+}
 
 function createBookCard(book, index) {
-    console.log('Creating card for: ', book, index);
-
     const statusText = getBookStatus(book.read);
 
     const library = document.getElementById('library');
@@ -122,15 +151,26 @@ function createBookCard(book, index) {
     const removeBook = document.createElement('button');
     removeBook.setAttribute('name', 'remove-book');
     removeBook.setAttribute('type', 'button');
+    removeBook.setAttribute(
+        'onclick',
+        `removeBookFromLibrary(${bookCard.dataset.key})`
+    );
     removeBook.textContent = 'Remove book';
+    removeBook.classList.add('button-default');
     removeBook.classList.add('button-remove');
+    removeBook.id = 'remove-button';
 
-    //create a remove book button
+    //create a toggle status book button
     const markRead = document.createElement('button');
     markRead.setAttribute('name', 'set-status');
     markRead.setAttribute('type', 'button');
+    markRead.setAttribute(
+        'onclick',
+        `changeBookStatus(${bookCard.dataset.key})`
+    );
     markRead.textContent = `Mark as ${statusText}`;
     markRead.classList.add('button-default');
+    markRead.id = 'read-button';
 
     //collect the actions
     bookActions.appendChild(markRead);
@@ -156,6 +196,13 @@ function getBookStatus(status) {
 function render() {
     //renders the page
     myLibrary.forEach((book, index) => createBookCard(book, index));
+    //clear out any old junk
+    resetForm();
+}
+
+function pushIntoArray(newBook) {
+    myLibrary.push(newBook);
+    render();
 }
 
 render();

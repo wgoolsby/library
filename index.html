@@ -14,7 +14,7 @@
         <div id="main">
             <button
                 id="show-form"
-                class="default-button"
+                class="button-default"
                 type="button"
                 onclick="toggleForm();"
             >
@@ -30,6 +30,7 @@
                             id="new-book-title"
                             placeholder="Title"
                             name="title"
+                            required
                         />
                     </div>
                     <br />
@@ -41,6 +42,7 @@
                             id="new-book-author"
                             placeholder="Author"
                             name="author"
+                            required
                         />
                     </div>
                     <br />
@@ -52,16 +54,13 @@
                             id="new-book-pages"
                             placeholder="0 pages"
                             name="pages"
+                            required
                         />
                     </div>
                     <br />
                     <div class="form-group">
-                        <label for="status">Read</label>
-                        <input
-                            type="checkbox"
-                            id="new-book-status"
-                            name="status"
-                        />
+                        <label for="read">Read</label>
+                        <input type="checkbox" id="new-book-read" name="read" />
                     </div>
                     <br />
                     <button
@@ -71,7 +70,12 @@
                         onclick="toggleForm();"
                     >
                         Cancel</button
-                    ><button id="submit" class="default-button" type="button">
+                    ><button
+                        id="submit"
+                        class="default-button"
+                        type="button"
+                        onclick="addBookToLibrary();"
+                    >
                         Submit book
                     </button>
                 </form>
