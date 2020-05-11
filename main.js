@@ -18,21 +18,21 @@ let myLibrary = [
         read: false,
     },
     {
-        title: 'Book 1',
+        title: 'Book 4',
         author: 'Author 1',
-        pages: '632',
+        pages: '432',
         read: true,
     },
     {
-        title: 'Book 2',
-        author: 'Author 1',
-        pages: '164',
+        title: 'Book 5',
+        author: 'Author 2',
+        pages: '124',
         read: false,
     },
     {
-        title: 'Book 3',
-        author: 'Author 2',
-        pages: '479',
+        title: 'Book 6',
+        author: 'Author 3',
+        pages: '865',
         read: false,
     },
 ];
@@ -43,6 +43,8 @@ let defaultForm = {
     pages: 0,
     read: false,
 };
+
+const library = document.getElementById('library');
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -57,7 +59,6 @@ function resetForm() {
     document.getElementById('new-book-pages').value = defaultForm.pages;
     document.getElementById('new-book-read').value = defaultForm.read;
 }
-
 function toggleForm() {
     const showButton = document.getElementById('show-form');
     const hideButton = document.getElementById('hide-form');
@@ -76,7 +77,6 @@ function toggleForm() {
     //clear out any old junk
     resetForm();
 }
-
 function addBookToLibrary() {
     // I need validation here.
     const newTitle = document.getElementById('new-book-title').value;
@@ -85,6 +85,8 @@ function addBookToLibrary() {
     const newRead = document.getElementById('new-book-read').value;
     const newBook = new Book(newTitle, newAuthor, newPages, newRead);
     pushIntoArray(newBook);
+    createBookCard(newBook);
+    resetForm();
 }
 function removeBookFromLibrary(index) {
     //can improve this to allow undo by not destroying the original array
@@ -96,14 +98,12 @@ function removeBookFromLibrary(index) {
 function changeBookStatus(index) {
     myLibrary[index].read = !myLibrary[index].read;
     const statusText = getBookStatus(myLibrary[index].read);
-    const markRead = document.getElementById('read-button');
-    markRead.textContent = `Mark as ${statusText}`;
+    const parentElement = document.querySelector(`[data-key="${index}"]`);
+    const readButton = parentElement.children[1].firstChild;
+    readButton.textContent = `Mark as ${statusText}`;
 }
-
 function createBookCard(book, index) {
     const statusText = getBookStatus(book.read);
-
-    const library = document.getElementById('library');
 
     //main container
     const bookCard = document.createElement('div');
@@ -184,7 +184,6 @@ function createBookCard(book, index) {
     //stick it on the library shelf
     library.appendChild(bookCard);
 }
-
 function getBookStatus(status) {
     if (status) {
         return 'unread';
@@ -192,17 +191,14 @@ function getBookStatus(status) {
         return 'read';
     }
 }
-
 function render() {
     //renders the page
     myLibrary.forEach((book, index) => createBookCard(book, index));
     //clear out any old junk
     resetForm();
 }
-
 function pushIntoArray(newBook) {
     myLibrary.push(newBook);
-    render();
 }
 
 render();
