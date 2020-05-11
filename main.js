@@ -1,38 +1,38 @@
 let myLibrary = [
     {
-        title: 'Book 1',
-        author: 'Author 1',
-        pages: '632',
+        title: 'Why We Sleep: Unlocking the Power of Sleep and Dreams',
+        author: 'Matthew Walker',
+        pages: '369',
+        read: false,
+    },
+    {
+        title: 'Pride and Prejudice',
+        author: 'Jane Austen',
+        pages: '279',
         read: true,
     },
     {
-        title: 'Book 2',
-        author: 'Author 1',
-        pages: '164',
+        title: 'The Design of Future Things',
+        author: 'Donald A. Norman',
+        pages: '240',
         read: false,
     },
     {
-        title: 'Book 3',
-        author: 'Author 2',
-        pages: '479',
-        read: false,
-    },
-    {
-        title: 'Book 4',
-        author: 'Author 1',
-        pages: '432',
+        title: 'The Name of the Wind',
+        author: 'Patrick Rothfuss',
+        pages: '662',
         read: true,
     },
     {
-        title: 'Book 5',
-        author: 'Author 2',
-        pages: '124',
-        read: false,
+        title: "The Wise Man's Fear",
+        author: 'Patrick Rothfuss',
+        pages: '994',
+        read: true,
     },
     {
-        title: 'Book 6',
-        author: 'Author 3',
-        pages: '865',
+        title: 'The Dark Monk',
+        author: 'Oliver Pötzsch',
+        pages: '514',
         read: false,
     },
 ];
@@ -43,16 +43,13 @@ let defaultForm = {
     pages: 0,
     read: false,
 };
-
 const library = document.getElementById('library');
-
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
 }
-
 function resetForm() {
     document.getElementById('new-book-title').value = defaultForm.title;
     document.getElementById('new-book-author').value = defaultForm.author;
@@ -69,6 +66,7 @@ function toggleForm() {
         showButton.classList.remove('hidden');
         hideButton.classList.add('hidden');
         formContainer.classList.add('hidden');
+        resetForm();
     } else {
         showButton.classList.add('hidden');
         hideButton.classList.remove('hidden');
@@ -87,6 +85,7 @@ function addBookToLibrary() {
     pushIntoArray(newBook);
     createBookCard(newBook);
     resetForm();
+    toggleForm();
 }
 function removeBookFromLibrary(index) {
     //can improve this to allow undo by not destroying the original array
