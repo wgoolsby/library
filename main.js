@@ -75,6 +75,7 @@ function toggleForm() {
     //clear out any old junk
     resetForm();
 }
+
 function addBookToLibrary() {
     // I need validation here.
     const newTitle = document.getElementById('new-book-title').value;
