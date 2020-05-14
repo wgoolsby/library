@@ -56,7 +56,7 @@ function resetForm() {
     document.getElementById('new-book-title').value = defaultForm.title;
     document.getElementById('new-book-author').value = defaultForm.author;
     document.getElementById('new-book-pages').value = defaultForm.pages;
-    document.getElementById('new-book-read').value = defaultForm.read;
+    document.getElementById('new-book-read').checked = defaultForm.read;
 
     errorMessage.textContent = '';
 }
@@ -87,12 +87,13 @@ function addBookToLibrary() {
     const newTitle = document.getElementById('new-book-title').value;
     const newAuthor = document.getElementById('new-book-author').value;
     const newPages = document.getElementById('new-book-pages').value;
-    const newRead = document.getElementById('new-book-read').value;
+    const newRead = document.getElementById('new-book-read').checked;
     const newBook = new Book(newTitle, newAuthor, newPages, newRead);
 
     if (isValidForm) {
         pushIntoArray(newBook);
-        createBookCard(newBook);
+
+        createBookCard(newBook, myLibrary.length - 1);
         resetForm();
         toggleForm();
     } else {
