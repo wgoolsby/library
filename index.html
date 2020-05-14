@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="normalize.css" />
         <link rel="stylesheet" href="style.css" />
-        <title>Book Constructor Exercise</title>
+        <title>My Library Book Tracker</title>
     </head>
     <body>
         <header id="header">
@@ -33,7 +33,6 @@
                             required
                         />
                     </div>
-                    <br />
                     <div class="form-group">
                         <label for="author">Book Author*</label>
                         <br />
@@ -45,7 +44,6 @@
                             required
                         />
                     </div>
-                    <br />
                     <div class="form-group">
                         <label for="pages">Number of Pages*</label>
                         <br />
@@ -57,12 +55,11 @@
                             required
                         />
                     </div>
-                    <br />
                     <div class="form-group">
                         <label for="read">Read</label>
                         <input type="checkbox" id="new-book-read" name="read" />
                     </div>
-                    <br />
+                    <div id="error-handling"><p id="error-message"></p></div>
                     <button
                         id="hide-form"
                         class="default-button hidden"
