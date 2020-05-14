@@ -44,6 +44,8 @@ let defaultForm = {
     read: false,
 };
 const library = document.getElementById('library');
+const errorMessage = document.getElementById('error-message');
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -55,6 +57,8 @@ function resetForm() {
     document.getElementById('new-book-author').value = defaultForm.author;
     document.getElementById('new-book-pages').value = defaultForm.pages;
     document.getElementById('new-book-read').value = defaultForm.read;
+
+    errorMessage.textContent = '';
 }
 function toggleForm() {
     const showButton = document.getElementById('show-form');
@@ -75,18 +79,26 @@ function toggleForm() {
     //clear out any old junk
     resetForm();
 }
-
 function addBookToLibrary() {
+    const form = document.getElementById('new-book-form');
+    let isValidForm = form.checkValidity();
+
     // I need validation here.
     const newTitle = document.getElementById('new-book-title').value;
     const newAuthor = document.getElementById('new-book-author').value;
     const newPages = document.getElementById('new-book-pages').value;
     const newRead = document.getElementById('new-book-read').value;
     const newBook = new Book(newTitle, newAuthor, newPages, newRead);
-    pushIntoArray(newBook);
-    createBookCard(newBook);
-    resetForm();
-    toggleForm();
+
+    if (isValidForm) {
+        pushIntoArray(newBook);
+        createBookCard(newBook);
+        resetForm();
+        toggleForm();
+    } else {
+        errorMessage.textContent = 'You are missing required data.';
+        document.getElementById('error-handling').appendChild(errorMessage);
+    }
 }
 function removeBookFromLibrary(index) {
     //can improve this to allow undo by not destroying the original array
