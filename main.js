@@ -40,7 +40,7 @@ let myLibrary = [
 let defaultForm = {
     title: '',
     author: '',
-    pages: 0,
+    pages: '',
     read: false,
 };
 const library = document.getElementById('library');
@@ -97,7 +97,8 @@ function addBookToLibrary() {
         resetForm();
         toggleForm();
     } else {
-        errorMessage.textContent = 'You are missing required data.';
+        errorMessage.textContent =
+            'You are missing required or have input invalid data.';
         document.getElementById('error-handling').appendChild(errorMessage);
     }
 }
