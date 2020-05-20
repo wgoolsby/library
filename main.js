@@ -169,7 +169,7 @@ function createBookCard(book, index) {
         'onclick',
         `removeBookFromLibrary(${bookCard.dataset.key})`
     );
-    removeBook.textContent = 'Remove book';
+    removeBook.textContent = 'Delete';
     removeBook.classList.add('button-default');
     removeBook.classList.add('button-remove');
     removeBook.id = 'remove-button';

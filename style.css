@@ -76,7 +76,17 @@ body {
 }
 
 .button-remove {
-    background-color: tomato;
+    background-color: #e89292;
+}
+.button-remove:hover {
+    background-color: #c88080;
+}
+
+.button-success {
+    background-color: #92e8b4;
+}
+.button-success:hover {
+    background-color: #80c89d;
 }
 
 .hidden {
